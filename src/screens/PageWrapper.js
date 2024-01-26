@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import globalStyles from "../globalStyles.js";
 
-export default function PageWrapper({ children }) {
+export default function PageWrapper({titleJsx, children }) {
   return (
     <SafeAreaView style={pageWrapperStyles.pageContainer}>
       <StatusBar style="light" />
@@ -14,7 +14,7 @@ export default function PageWrapper({ children }) {
           <Text
             style={[globalStyles.defaultText, pageWrapperStyles.topBarText]}
           >
-            Hi
+            {titleJsx}
           </Text>
         </TopBar>
         <View>{children}</View>

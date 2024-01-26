@@ -1,8 +1,10 @@
 import { useFonts } from "expo-font";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import PageWrapper from "./src/screens/PageWrapper";
+import { usePage } from "./src/hooks/usePage";
 
 export default function App() {
+  const { titleJsx } = usePage();
   const [fontsLoaded] = useFonts({
     "JetBrains-Mono-regular": require("./src/assets/fonts/jetbrains-mono-regular.ttf"),
     "JetBrains-Mono-bold": require("./src/assets/fonts/jetbrains-mono-bold.ttf"),
@@ -12,7 +14,8 @@ export default function App() {
   }
   return (
     <SafeAreaProvider>
-      <PageWrapper />
+      <PageWrapper titleJsx={titleJsx}>
+      </PageWrapper>
     </SafeAreaProvider>
   );
 }
