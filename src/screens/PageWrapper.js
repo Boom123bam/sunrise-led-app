@@ -1,16 +1,21 @@
 import { View, Text, StyleSheet } from "react-native";
-import { gray300, gray500, textBase } from "../constants.js";
+import { gray300, gray500 } from "../constants.js";
 import TopBar from "../components/TopBar.js";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
+import globalStyles from "../globalStyles.js";
 
 export default function PageWrapper({ children }) {
   return (
-    <SafeAreaView style={{ backgroundColor: gray500, flex: 1 }}>
+    <SafeAreaView style={pageWrapperStyles.pageContainer}>
       <StatusBar style="light" />
-      <View style={{ backgroundColor: gray300, flex: 1 }}>
+      <View style={pageWrapperStyles.contentContainer}>
         <TopBar>
-          <Text style = {styles.topBarText}>Hi</Text>
+          <Text
+            style={[globalStyles.defaultText, pageWrapperStyles.topBarText]}
+          >
+            Hi
+          </Text>
         </TopBar>
         <View>{children}</View>
       </View>
@@ -18,12 +23,8 @@ export default function PageWrapper({ children }) {
   );
 }
 
-const styles = StyleSheet.create({
-  topBarText: {
-    color: textBase,
-    textAlign: "center",
-    fontSize: 20,
-    fontFamily: "JetBrains-Mono-bold",
-    lineHeight: 28,
-  },
+const pageWrapperStyles = StyleSheet.create({
+  pageContainer: { backgroundColor: gray500, flex: 1 },
+  contentContainer: { backgroundColor: gray300, flex: 1 },
+  topBarText: { fontSize: 20 },
 });
