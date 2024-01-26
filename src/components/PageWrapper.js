@@ -5,11 +5,11 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import globalStyles from "../globalStyles.js";
 
-export default function PageWrapper({titleJsx, children }) {
+export default function PageWrapper({ titleJsx, children }) {
   return (
-    <SafeAreaView style={pageWrapperStyles.pageContainer}>
+    <SafeAreaView style={pageWrapperStyles.background}>
       <StatusBar style="light" />
-      <View style={pageWrapperStyles.contentContainer}>
+      <View style={pageWrapperStyles.pageContainer}>
         <TopBar>
           <Text
             style={[globalStyles.defaultText, pageWrapperStyles.topBarText]}
@@ -17,14 +17,15 @@ export default function PageWrapper({titleJsx, children }) {
             {titleJsx}
           </Text>
         </TopBar>
-        <View>{children}</View>
+        <View style={pageWrapperStyles.contentContainer}>{children}</View>
       </View>
     </SafeAreaView>
   );
 }
 
 const pageWrapperStyles = StyleSheet.create({
-  pageContainer: { backgroundColor: gray500, flex: 1 },
-  contentContainer: { backgroundColor: gray300, flex: 1 },
+  background: { backgroundColor: gray500, flex: 1 },
+  pageContainer: { backgroundColor: gray300, flex: 1 },
+  contentContainer: { flex: 1 },
   topBarText: { fontSize: 20 },
 });
