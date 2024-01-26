@@ -1,7 +1,8 @@
 import { useFonts } from "expo-font";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import PageWrapper from "./src/screens/PageWrapper";
+import PageWrapper from "./src/components/PageWrapper";
 import { usePage } from "./src/hooks/usePage";
+import HomePage from "./src/pages/HomePage";
 
 export default function App() {
   const { titleJsx } = usePage();
@@ -15,6 +16,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <PageWrapper titleJsx={titleJsx}>
+        <HomePage/>
       </PageWrapper>
     </SafeAreaProvider>
   );
