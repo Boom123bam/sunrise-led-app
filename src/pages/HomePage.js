@@ -39,7 +39,7 @@ const {setTitle} = usePage()
         ))}
       </View>
 
-      <Pressable style={globalStyles.button} onPress={()=>setTitle("edit")}>
+      <Pressable style={[globalStyles.button, globalStyles.shadow]} onPress={()=>setTitle("edit")}>
         <Text style={globalStyles.text}>
           <Text style={globalStyles.textPurple}>new </Text>
           <Text style={globalStyles.textBlue}>Wave</Text>

@@ -1,12 +1,14 @@
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import TopBarStyles from "./TopBar.styles";
+import globalStyles from "../globalStyles";
 
 export default function TopBar({ children }) {
   return (
-    <View style={TopBarStyles.topBarContainer}>
-      <View style={TopBarStyles.smallBar} />
-      <View style={TopBarStyles.middleBox}>{children}</View>
-      <View style={TopBarStyles.smallBar} />
+    <View style={[TopBarStyles.topBarContainer, globalStyles.shadow]}>
+      <View style={TopBarStyles.top} />
+      <View style={TopBarStyles.middleBox}>
+        <Text style={TopBarStyles.middleBoxText}>{children}</Text>
+      </View>
     </View>
   );
 }

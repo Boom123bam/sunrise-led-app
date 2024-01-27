@@ -3,11 +3,16 @@ import { gray500, textBase } from "../constants";
 
 export default TopBarStyles = StyleSheet.create({
   topBarContainer: {
-    flexDirection: "row",
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: -100,
+    zIndex: 100,
+
   },
-  smallBar: {
+  top: {
     backgroundColor: gray500,
-    height: 24,
+    height: 130,
     flex: 1,
   },
   middleBox: {
@@ -15,7 +20,7 @@ export default TopBarStyles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     paddingHorizontal: 28,
-    paddingVertical: 16,
+    alignSelf: "center",
   },
   middleBoxText: {
     color: textBase,
@@ -23,5 +28,6 @@ export default TopBarStyles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "JetBrains-Mono-bold",
     lineHeight: 28,
+    transform: [{ translateY: -12 }],
   },
 });

@@ -24,8 +24,17 @@ export default function PageWrapper({ titleJsx, children }) {
 }
 
 const pageWrapperStyles = StyleSheet.create({
-  background: { backgroundColor: gray500, flex: 1 },
-  pageContainer: { backgroundColor: gray300, flex: 1 },
-  contentContainer: { flex: 1 },
-  topBarText: { fontSize: 20 },
+  background: {
+    flex: 1,
+  },
+  pageContainer: {
+    flex: 1,
+  },
+  contentContainer: {
+    flex: 1,
+    paddingTop: 24,
+  },
+  topBarText: {
+    fontSize: 20,
+  },
 });
