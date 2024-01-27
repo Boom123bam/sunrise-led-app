@@ -9,16 +9,18 @@ import {
 } from "react-native";
 import globalStyles from "../globalStyles";
 import { gray500 } from "../constants";
+import { usePage } from "../hooks/usePage";
 
 export default function EditAdd() {
+  const { setTitle } = usePage();
   return (
-    <View style={[styles.container, {marginBottom: 16}]}>
+    <View style={[styles.container, { marginBottom: 16 }]}>
       <KeyboardAvoidingView
         style={styles.container}
         behavior="padding"
         keyboardVerticalOffset={100}
       >
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
           <View style={styles.waveInfo}>
             <TextInput
               style={[globalStyles.text, styles.waveName]}
@@ -26,6 +28,7 @@ export default function EditAdd() {
               placeholderTextColor={gray500}
               autoCorrect={false}
               autoCapitalize="none"
+              returnKeyType="done"
             />
             <View style={styles.colorCircle} />
             <View style={styles.wavePropreties}>
@@ -38,44 +41,56 @@ export default function EditAdd() {
                   placeholder="0.00"
                   placeholderTextColor={gray500}
                   inputMode="numeric"
+                  returnKeyType="done"
                 />
                 <Text style={globalStyles.text}>;</Text>
               </View>
               <View style={styles.propertyLine}>
                 <Text style={globalStyles.text}>
-                  .<Text style={globalStyles.textBlue}>start_time</Text> ={" "}
+                  .<Text style={globalStyles.textBlue}>end_time</Text> ={" "}
                 </Text>
                 <TextInput
                   style={[globalStyles.text, globalStyles.textPurple]}
                   placeholder="0.00"
                   placeholderTextColor={gray500}
                   inputMode="numeric"
+                  returnKeyType="done"
                 />
                 <Text style={globalStyles.text}>;</Text>
               </View>
               <View style={styles.propertyLine}>
                 <Text style={globalStyles.text}>
-                  .<Text style={globalStyles.textBlue}>start_time</Text> ={" "}
+                  .<Text style={globalStyles.textBlue}>in_duration</Text> ={" "}
                 </Text>
                 <TextInput
                   style={[globalStyles.text, globalStyles.textPurple]}
                   placeholder="0.00"
                   placeholderTextColor={gray500}
                   inputMode="numeric"
+                  returnKeyType="done"
                 />
-                <Text style={globalStyles.text}>;</Text>
+                <Text style={globalStyles.text}>
+                  ;<Text style={globalStyles.textDark}>{" // mins"}</Text>
+                </Text>
               </View>
             </View>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
       <View style={styles.actionButtons}>
-        <Pressable style={[globalStyles.button, globalStyles.secondary]}>
+        <Pressable
+          onPress={() => setTitle("home")}
+          style={[
+            globalStyles.button,
+            globalStyles.secondary,
+            globalStyles.shadow,
+          ]}
+        >
           <Text style={globalStyles.text}>
             /<Text style={globalStyles.textBlue}>..</Text>
           </Text>
         </Pressable>
-        <Pressable style={globalStyles.button}>
+        <Pressable style={[globalStyles.button, globalStyles.shadow]}>
           <Text style={globalStyles.text}>
             .<Text style={globalStyles.textPurple}>save</Text>()
           </Text>

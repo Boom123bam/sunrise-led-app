@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
-import { gray500, text1, text2, textBase } from "./constants";
+import { gray400, gray500, gray700, text1, text2, textBase } from "./constants";
 
 export default globalStyles = StyleSheet.create({
   text: {
     color: textBase,
     fontSize: 16,
-    fontFamily: "JetBrains-Mono-bold",
+    fontFamily: "JetBrains-Mono-regular",
   },
   textPurple: {
     color: text1,
@@ -13,20 +13,30 @@ export default globalStyles = StyleSheet.create({
   textBlue: {
     color: text2,
   },
+  textLight:{
+    color: gray700,
+  },
+  textDark:{
+    color: gray500,
+  },
   button: {
     backgroundColor: gray500,
     paddingHorizontal: 20,
     paddingVertical: 12,
     borderRadius: 10,
-
+  },
+  secondary: {
+    backgroundColor: gray400,
+  },
+  shadow: {
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 4,
     },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
 
-    elevation: 3,
+    elevation: 8,
   },
 });
