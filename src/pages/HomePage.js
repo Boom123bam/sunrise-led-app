@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import globalStyles from "../globalStyles";
 import WaveItem from "../components/WaveItem";
 import { gray500 } from "../constants";
+import { usePage } from "../hooks/usePage";
 
 const waves = [
   {
@@ -22,6 +23,7 @@ const waves = [
 ];
 
 export default function HomePage() {
+const {setTitle} = usePage()
   return (
     <View style={styles.homePage}>
       <View style={styles.waveListContainer}>
@@ -37,10 +39,10 @@ export default function HomePage() {
         ))}
       </View>
 
-      <Pressable style={globalStyles.button}>
+      <Pressable style={globalStyles.button} onPress={()=>setTitle("edit")}>
         <Text style={globalStyles.text}>
-          <Text style={globalStyles.textBlue}>new </Text>
-          <Text style={globalStyles.textPurple}>Wave</Text>
+          <Text style={globalStyles.textPurple}>new </Text>
+          <Text style={globalStyles.textBlue}>Wave</Text>
         </Text>
       </Pressable>
     </View>

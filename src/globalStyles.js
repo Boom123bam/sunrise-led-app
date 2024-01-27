@@ -7,10 +7,10 @@ export default globalStyles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "JetBrains-Mono-bold",
   },
-  textBlue: {
+  textPurple: {
     color: text1,
   },
-  textPurple: {
+  textBlue: {
     color: text2,
   },
   button: {
