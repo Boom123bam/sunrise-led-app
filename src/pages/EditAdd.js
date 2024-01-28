@@ -16,6 +16,7 @@ import ColorPicker, {
   BrightnessSlider,
 } from "reanimated-color-picker";
 import EditAddStyles from "./EditAdd.styles";
+import { useWaves } from "../hooks/useWaves";
 
 export default function EditAdd() {
   const [name, setName] = useState("");
@@ -26,6 +27,7 @@ export default function EditAdd() {
   const [tempColor, setTempColor] = useState("#ffffff");
   const [showColorPicker, setShowColorPicker] = useState(false);
   const { setTitle } = usePage();
+  const { addWave } = useWaves();
 
   function handleStartTimeChange(newTime) {
     setStartTime(normalizeTimeInput(newTime, startTime));
@@ -51,19 +53,34 @@ export default function EditAdd() {
 
   function handleNewColor() {
     setColor(tempColor);
-    setShowColorPicker(false)
+    setShowColorPicker(false);
   }
   function handleCancelColor() {
     setShowColorPicker(false);
   }
   function handleColorCircleClick() {
-    setShowColorPicker(true)
+    setShowColorPicker(true);
+  }
+  function handleSave() {
+    addWave({
+      name,
+      color,
+      startHour: startTime.substring(0,2),
+      startMinute: startTime.substring(3),
+      endHour: endTime.substring(0,2),
+      endMinute: endTime.substring(3),
+      endTime,
+      inDuration,
+    });
+    setTitle("home")
   }
 
   return (
     <View style={[EditAddStyles.container, { marginBottom: 16 }]}>
       {showColorPicker && (
-        <View style={[EditAddStyles.colorPickerPopupContainer, globalStyles.shadow]}>
+        <View
+          style={[EditAddStyles.colorPickerPopupContainer, globalStyles.shadow]}
+        >
           <ColorPicker
             value={color}
             onComplete={handleNewTempColor}
@@ -180,7 +197,10 @@ export default function EditAdd() {
             /<Text style={globalStyles.textBlue}>..</Text>
           </Text>
         </Pressable>
-        <Pressable style={[globalStyles.button, globalStyles.shadow]}>
+        <Pressable
+          style={[globalStyles.button, globalStyles.shadow]}
+          onPress={handleSave}
+        >
           <Text style={globalStyles.text}>
             .<Text style={globalStyles.textPurple}>save</Text>()
           </Text>
@@ -189,4 +209,3 @@ export default function EditAdd() {
     </View>
   );
 }
-

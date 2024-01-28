@@ -3,27 +3,12 @@ import globalStyles from "../globalStyles";
 import WaveItem from "../components/WaveItem";
 import { gray500 } from "../constants";
 import { usePage } from "../hooks/usePage";
+import { useWaves } from "../hooks/useWaves";
 
-const waves = [
-  {
-    title: "wave1",
-    timeRange: "7:30 - 8:00",
-    color: "lightblue",
-  },
-  {
-    title: "wave2",
-    timeRange: "7:30 - 8:00",
-    color: "pink",
-  },
-  {
-    title: "wave1",
-    timeRange: "7:30 - 8:00",
-    color: "lightgreen",
-  },
-];
 
 export default function HomePage() {
   const { setTitle } = usePage();
+  const { waves } = useWaves()
   return (
     <View style={styles.homePage}>
       <ScrollView
@@ -35,8 +20,8 @@ export default function HomePage() {
             <View key={i}>
               {i !== 0 && <View style={styles.separator} />}
               <WaveItem
-                title={wave.title}
-                timeRange={wave.timeRange}
+                title={wave.name}
+                timeRange={`${wave.startHour}:${wave.startMinute} - ${wave.endHour}:${wave.endMinute}`}
                 color={wave.color}
               />
             </View>
