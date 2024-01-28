@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import globalStyles from "../globalStyles";
-import { gray400, gray500 } from "../constants";
+import { gray400, gray500, gray600 } from "../constants";
 import { usePage } from "../hooks/usePage";
 import { useState } from "react";
 import ColorPicker, {
@@ -244,6 +244,6 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   popupOKButton: {
-    backgroundColor: "#666",
+    backgroundColor: gray600,
   },
 });
