@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   View,
   ScrollView,
   Text,
@@ -8,7 +7,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import globalStyles from "../globalStyles";
-import { gray400, gray500, gray600 } from "../constants";
+import { gray500 } from "../constants";
 import { usePage } from "../hooks/usePage";
 import { useState } from "react";
 import ColorPicker, {
@@ -16,6 +15,7 @@ import ColorPicker, {
   Preview,
   BrightnessSlider,
 } from "reanimated-color-picker";
+import EditAddStyles from "./EditAdd.styles";
 
 export default function EditAdd() {
   const [name, setName] = useState("");
@@ -61,27 +61,27 @@ export default function EditAdd() {
   }
 
   return (
-    <View style={[styles.container, { marginBottom: 16 }]}>
+    <View style={[EditAddStyles.container, { marginBottom: 16 }]}>
       {showColorPicker && (
-        <View style={[styles.colorPickerPopupContainer, globalStyles.shadow]}>
+        <View style={[EditAddStyles.colorPickerPopupContainer, globalStyles.shadow]}>
           <ColorPicker
             value={color}
             onComplete={handleNewTempColor}
-            style={styles.colorPickerContainer}
+            style={EditAddStyles.colorPickerContainer}
           >
             <Preview />
             <Panel3 />
             <BrightnessSlider />
           </ColorPicker>
 
-          <View style={styles.popupButtonsContainer}>
+          <View style={EditAddStyles.popupButtonsContainer}>
             <Pressable style={globalStyles.button} onPress={handleCancelColor}>
               <Text style={globalStyles.text}>
                 /<Text style={globalStyles.textBlue}>..</Text>
               </Text>
             </Pressable>
             <Pressable
-              style={[globalStyles.button, styles.popupOKButton]}
+              style={[globalStyles.button, EditAddStyles.popupOKButton]}
               onPress={handleNewColor}
             >
               <Text style={globalStyles.text}>OK</Text>
@@ -91,14 +91,14 @@ export default function EditAdd() {
       )}
 
       <KeyboardAvoidingView
-        style={styles.container}
+        style={EditAddStyles.container}
         behavior="padding"
         keyboardVerticalOffset={100}
       >
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-          <View style={styles.waveInfo}>
+          <View style={EditAddStyles.waveInfo}>
             <TextInput
-              style={[globalStyles.text, styles.waveName]}
+              style={[globalStyles.text, EditAddStyles.waveName]}
               placeholder="name"
               placeholderTextColor={gray500}
               autoCorrect={false}
@@ -109,11 +109,11 @@ export default function EditAdd() {
               maxLength={24}
             />
             <Pressable
-              style={[styles.colorCircle, { backgroundColor: color }]}
+              style={[EditAddStyles.colorCircle, { backgroundColor: color }]}
               onPress={handleColorCircleClick}
             />
-            <View style={styles.wavePropreties}>
-              <View style={styles.propertyLine}>
+            <View style={EditAddStyles.wavePropreties}>
+              <View style={EditAddStyles.propertyLine}>
                 <Text style={globalStyles.text}>
                   .<Text style={globalStyles.textBlue}>start_time</Text> ={" "}
                 </Text>
@@ -129,7 +129,7 @@ export default function EditAdd() {
                 />
                 <Text style={globalStyles.text}>;</Text>
               </View>
-              <View style={styles.propertyLine}>
+              <View style={EditAddStyles.propertyLine}>
                 <Text style={globalStyles.text}>
                   .<Text style={globalStyles.textBlue}>end_time</Text> ={" "}
                 </Text>
@@ -145,7 +145,7 @@ export default function EditAdd() {
                 />
                 <Text style={globalStyles.text}>;</Text>
               </View>
-              <View style={styles.propertyLine}>
+              <View style={EditAddStyles.propertyLine}>
                 <Text style={globalStyles.text}>
                   .<Text style={globalStyles.textBlue}>in_duration</Text> ={" "}
                 </Text>
@@ -167,7 +167,7 @@ export default function EditAdd() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-      <View style={styles.actionButtons}>
+      <View style={EditAddStyles.actionButtons}>
         <Pressable
           onPress={() => setTitle("home")}
           style={[
@@ -190,60 +190,3 @@ export default function EditAdd() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    flex: 1,
-  },
-  waveInfo: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 30,
-    marginTop: 80,
-  },
-  waveName: {
-    fontSize: 24,
-    fontFamily: "JetBrains-Mono-bold",
-  },
-  colorCircle: {
-    width: 220,
-    height: 220,
-    borderRadius: 1000,
-    marginBottom: 30,
-  },
-  wavePropreties: {
-    width: 270,
-    alignItems: "flex-start",
-    gap: 24,
-  },
-  propertyLine: {
-    flexDirection: "row",
-  },
-  propertyInput: {},
-  actionButtons: {
-    flexDirection: "row",
-    gap: 10,
-  },
-  colorPickerPopupContainer: {
-    position: "absolute",
-    width: 350,
-    top: 50,
-    backgroundColor: gray400,
-    zIndex: 100,
-    padding: 20,
-    borderRadius: 10,
-    gap: 30,
-  },
-  colorPickerContainer: {
-    gap: 20,
-  },
-  popupButtonsContainer: {
-    justifyContent: "center",
-    flexDirection: "row",
-    gap: 10,
-  },
-  popupOKButton: {
-    backgroundColor: gray600,
-  },
-});
