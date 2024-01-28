@@ -32,14 +32,14 @@ export default function HomePage() {
       >
         <View style={styles.waveListContainer}>
           {waves.map((wave, i) => (
-            <>
+            <View key={i}>
               {i !== 0 && <View style={styles.separator} />}
               <WaveItem
                 title={wave.title}
                 timeRange={wave.timeRange}
                 color={wave.color}
               />
-            </>
+            </View>
           ))}
         </View>
       </ScrollView>
