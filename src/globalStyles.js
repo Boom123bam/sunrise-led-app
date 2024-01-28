@@ -24,6 +24,7 @@ export default globalStyles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 12,
     borderRadius: 10,
+    alignSelf: "center",
   },
   secondary: {
     backgroundColor: gray400,

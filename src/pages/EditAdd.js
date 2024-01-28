@@ -8,15 +8,23 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import globalStyles from "../globalStyles";
-import { gray500 } from "../constants";
+import { gray400, gray500 } from "../constants";
 import { usePage } from "../hooks/usePage";
 import { useState } from "react";
+import ColorPicker, {
+  Panel3,
+  Preview,
+  BrightnessSlider,
+} from "reanimated-color-picker";
 
 export default function EditAdd() {
   const [name, setName] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [inDuration, setInDuration] = useState("");
+  const [color, setColor] = useState("#ffffff");
+  const [tempColor, setTempColor] = useState("#ffffff");
+  const [showColorPicker, setShowColorPicker] = useState(false);
   const { setTitle } = usePage();
 
   function handleStartTimeChange(newTime) {
@@ -31,14 +39,57 @@ export default function EditAdd() {
 
   const normalizeTimeInput = (value, previousValue) => {
     if (value.length === 3 && previousValue.length === 2)
-    return previousValue + "." + value[2]
+      return previousValue + "." + value[2];
     if (value.length === 3 && previousValue.length === 4)
-    return value.substring(0,2)
-    return value
+      return value.substring(0, 2);
+    return value;
   };
+
+  const handleNewTempColor = ({ hex }) => {
+    setTempColor(hex);
+  };
+
+  function handleNewColor() {
+    setColor(tempColor);
+    setShowColorPicker(false)
+  }
+  function handleCancelColor() {
+    setShowColorPicker(false);
+  }
+  function handleColorCircleClick() {
+    setShowColorPicker(true)
+  }
 
   return (
     <View style={[styles.container, { marginBottom: 16 }]}>
+      {showColorPicker && (
+        <View style={[styles.colorPickerPopupContainer, globalStyles.shadow]}>
+          <ColorPicker
+            value={color}
+            onComplete={handleNewTempColor}
+            style={styles.colorPickerContainer}
+          >
+            <Preview />
+            <Panel3 />
+            <BrightnessSlider />
+          </ColorPicker>
+
+          <View style={styles.popupButtonsContainer}>
+            <Pressable style={globalStyles.button} onPress={handleCancelColor}>
+              <Text style={globalStyles.text}>
+                /<Text style={globalStyles.textBlue}>..</Text>
+              </Text>
+            </Pressable>
+            <Pressable
+              style={[globalStyles.button, styles.popupOKButton]}
+              onPress={handleNewColor}
+            >
+              <Text style={globalStyles.text}>OK</Text>
+            </Pressable>
+          </View>
+        </View>
+      )}
+
       <KeyboardAvoidingView
         style={styles.container}
         behavior="padding"
@@ -57,7 +108,10 @@ export default function EditAdd() {
               onChangeText={setName}
               maxLength={24}
             />
-            <View style={styles.colorCircle} />
+            <Pressable
+              style={[styles.colorCircle, { backgroundColor: color }]}
+              onPress={handleColorCircleClick}
+            />
             <View style={styles.wavePropreties}>
               <View style={styles.propertyLine}>
                 <Text style={globalStyles.text}>
@@ -155,7 +209,6 @@ const styles = StyleSheet.create({
   colorCircle: {
     width: 220,
     height: 220,
-    backgroundColor: "lightblue",
     borderRadius: 1000,
     marginBottom: 30,
   },
@@ -171,5 +224,26 @@ const styles = StyleSheet.create({
   actionButtons: {
     flexDirection: "row",
     gap: 10,
+  },
+  colorPickerPopupContainer: {
+    position: "absolute",
+    width: 350,
+    top: 50,
+    backgroundColor: gray400,
+    zIndex: 100,
+    padding: 20,
+    borderRadius: 10,
+    gap: 30,
+  },
+  colorPickerContainer: {
+    gap: 20,
+  },
+  popupButtonsContainer: {
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: 10,
+  },
+  popupOKButton: {
+    backgroundColor: "#666",
   },
 });
