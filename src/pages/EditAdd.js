@@ -10,9 +10,33 @@ import {
 import globalStyles from "../globalStyles";
 import { gray500 } from "../constants";
 import { usePage } from "../hooks/usePage";
+import { useState } from "react";
 
 export default function EditAdd() {
+  const [name, setName] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [inDuration, setInDuration] = useState("");
   const { setTitle } = usePage();
+
+  function handleStartTimeChange(newTime) {
+    setStartTime(normalizeTimeInput(newTime, startTime));
+  }
+  function handleEndTimeChange(newTime) {
+    setEndTime(normalizeTimeInput(newTime, endTime));
+  }
+  function handleDurationChange(newDuration) {
+    setInDuration(newDuration);
+  }
+
+  const normalizeTimeInput = (value, previousValue) => {
+    if (value.length === 3 && previousValue.length === 2)
+    return previousValue + "." + value[2]
+    if (value.length === 3 && previousValue.length === 4)
+    return value.substring(0,2)
+    return value
+  };
+
   return (
     <View style={[styles.container, { marginBottom: 16 }]}>
       <KeyboardAvoidingView
@@ -29,6 +53,9 @@ export default function EditAdd() {
               autoCorrect={false}
               autoCapitalize="none"
               returnKeyType="done"
+              value={name}
+              onChangeText={setName}
+              maxLength={24}
             />
             <View style={styles.colorCircle} />
             <View style={styles.wavePropreties}>
@@ -38,10 +65,13 @@ export default function EditAdd() {
                 </Text>
                 <TextInput
                   style={[globalStyles.text, globalStyles.textPurple]}
-                  placeholder="0.00"
+                  placeholder="00.00"
                   placeholderTextColor={gray500}
                   inputMode="numeric"
                   returnKeyType="done"
+                  value={startTime}
+                  onChangeText={handleStartTimeChange}
+                  maxLength={5}
                 />
                 <Text style={globalStyles.text}>;</Text>
               </View>
@@ -51,10 +81,13 @@ export default function EditAdd() {
                 </Text>
                 <TextInput
                   style={[globalStyles.text, globalStyles.textPurple]}
-                  placeholder="0.00"
+                  placeholder="00.00"
                   placeholderTextColor={gray500}
                   inputMode="numeric"
                   returnKeyType="done"
+                  value={endTime}
+                  onChangeText={handleEndTimeChange}
+                  maxLength={5}
                 />
                 <Text style={globalStyles.text}>;</Text>
               </View>
@@ -64,10 +97,13 @@ export default function EditAdd() {
                 </Text>
                 <TextInput
                   style={[globalStyles.text, globalStyles.textPurple]}
-                  placeholder="0.00"
+                  placeholder="00"
                   placeholderTextColor={gray500}
                   inputMode="numeric"
                   returnKeyType="done"
+                  value={inDuration}
+                  onChangeText={handleDurationChange}
+                  maxLength={2}
                 />
                 <Text style={globalStyles.text}>
                   ;<Text style={globalStyles.textDark}>{" // mins"}</Text>
