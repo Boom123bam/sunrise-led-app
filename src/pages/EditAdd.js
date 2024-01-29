@@ -22,12 +22,12 @@ export default function EditAdd() {
   const [name, setName] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [inDuration, setInDuration] = useState("");
+  const [inDurationStr, setInDurationStr] = useState("");
   const [color, setColor] = useState("#ffffff");
   const [tempColor, setTempColor] = useState("#ffffff");
   const [showColorPicker, setShowColorPicker] = useState(false);
   const { setTitle } = usePage();
-  const { addWave } = useWaves();
+  const { waves, addWave } = useWaves();
 
   function handleStartTimeChange(newTime) {
     setStartTime(normalizeTimeInput(newTime, startTime));
@@ -36,7 +36,7 @@ export default function EditAdd() {
     setEndTime(normalizeTimeInput(newTime, endTime));
   }
   function handleDurationChange(newDuration) {
-    setInDuration(newDuration);
+    setInDurationStr(newDuration);
   }
 
   const normalizeTimeInput = (value, previousValue) => {
@@ -62,17 +62,70 @@ export default function EditAdd() {
     setShowColorPicker(true);
   }
   function handleSave() {
-    addWave({
-      name,
-      color,
-      startHour: startTime.substring(0,2),
-      startMinute: startTime.substring(3),
-      endHour: endTime.substring(0,2),
-      endMinute: endTime.substring(3),
-      endTime,
-      inDuration,
-    });
-    setTitle("home")
+    try {
+      const [startHour, startMinute] = convertTimeStringToNumber(
+        startTime,
+        "start",
+      );
+      const [endHour, endMinute] = convertTimeStringToNumber(endTime, "end");
+      if (isNaN(inDurationStr)) throw new Error("in_duration must be a number");
+      const inDuration = Number(inDurationStr);
+      if (inDuration < 0) throw new Error("invalid property in_duration");
+      const newWave = {
+        name,
+        color,
+        startHour,
+        startMinute,
+        endHour,
+        endMinute,
+        endTime,
+        inDuration,
+      };
+      // validate wave
+      validateWave(newWave);
+
+      addWave(newWave);
+      setTitle("home");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  function convertTimeStringToNumber(timeString, timeName) {
+    const timeRegex = /^(\d{1,2})\.(\d{2})$/;
+    const match = timeString.match(timeRegex);
+
+    if (!match) {
+      throw new Error(`invalid property ${timeName}_time`);
+    }
+
+    const [, hours, minutes] = match;
+    const hoursInt = parseInt(hours, 10);
+    const minutesInt = parseInt(minutes, 10);
+
+    if (hoursInt < 0 || hoursInt > 23 || minutesInt < 0 || minutesInt > 59) {
+      throw new Error(`invalid property ${timeName}_time`);
+    }
+
+    return [hoursInt, minutesInt];
+  }
+
+  function validateWave(newWave) {
+    // check if end > start
+    if (newWave.endHour < newWave.startHour)
+      throw new Error("end_time must be after start_time");
+
+    if (
+      newWave.endHour === newWave.startHour &&
+      newWave.endMinute < newWave.startMinute
+    )
+      throw new Error("end_time must be after start_time");
+
+    if (!newWave.name) throw new Error("wave must have a name");
+    // check if name taken
+    for (const wave of waves) {
+      if (wave.name === newWave.name) throw new Error("name already exists");
+    }
   }
 
   return (
@@ -172,7 +225,7 @@ export default function EditAdd() {
                   placeholderTextColor={gray500}
                   inputMode="numeric"
                   returnKeyType="done"
-                  value={inDuration}
+                  value={inDurationStr}
                   onChangeText={handleDurationChange}
                   maxLength={2}
                 />
