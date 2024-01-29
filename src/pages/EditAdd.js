@@ -286,7 +286,7 @@ export default function EditAdd() {
           onPress={handleSave}
         >
           <Text style={globalStyles.text}>
-            .<Text style={globalStyles.textPurple}>save</Text>()
+            .<Text style={globalStyles.textPurple}>save</Text><Text style={globalStyles.textBlue}>()</Text>
           </Text>
         </Pressable>
         {title == "edit" && (
