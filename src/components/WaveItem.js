@@ -4,9 +4,9 @@ import { gray700 } from "../constants";
 
 const editIcon = require("../assets/edit.png");
 
-export default function WaveItem({ title,  color, timeRange }) {
+export default function WaveItem({ title,  color, timeRange, handlePress }) {
   return (
-    <Pressable style={WaveItemStyles.container} onPress={()=>console.log("press")}>
+    <Pressable style={WaveItemStyles.container} onPress={handlePress}>
       <View style={WaveItemStyles.leftContainer}>
         <View
           style={[WaveItemStyles.colorCircle, { backgroundColor: color }]}

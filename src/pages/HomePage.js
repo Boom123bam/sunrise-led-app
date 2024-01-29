@@ -7,7 +7,7 @@ import { useWaves } from "../hooks/useWaves";
 
 
 export default function HomePage() {
-  const { setTitle } = usePage();
+  const { setTitle, setCurrentlyEditingWaveIndex } = usePage();
   const { waves } = useWaves()
 
   function formatTime(h, m) {
@@ -27,6 +27,10 @@ export default function HomePage() {
                 title={wave.name}
                 timeRange={`${formatTime(wave.startHour, wave.startMinute)} - ${formatTime(wave.endHour, wave.endMinute)}`}
                 color={wave.color}
+                handlePress={() => {
+                  setCurrentlyEditingWaveIndex(i)
+                  setTitle("edit")
+                }}
               />
             </View>
           ))}
@@ -35,7 +39,7 @@ export default function HomePage() {
       <View style={styles.buttonContainer}>
         <Pressable
           style={[globalStyles.button, globalStyles.shadow]}
-          onPress={() => setTitle("edit")}
+          onPress={() => setTitle("add")}
         >
           <Text style={globalStyles.text}>
             <Text style={globalStyles.textPurple}>new </Text>
