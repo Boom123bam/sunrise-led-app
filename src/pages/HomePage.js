@@ -9,6 +9,10 @@ import { useWaves } from "../hooks/useWaves";
 export default function HomePage() {
   const { setTitle } = usePage();
   const { waves } = useWaves()
+
+  function formatTime(h, m) {
+    return `${('0' + h).slice(-2)}:${('0' + m).slice(-2)}`
+  }
   return (
     <View style={styles.homePage}>
       <ScrollView
@@ -21,7 +25,7 @@ export default function HomePage() {
               {i !== 0 && <View style={styles.separator} />}
               <WaveItem
                 title={wave.name}
-                timeRange={`${wave.startHour}:${wave.startMinute} - ${wave.endHour}:${wave.endMinute}`}
+                timeRange={`${formatTime(wave.startHour, wave.startMinute)} - ${formatTime(wave.endHour, wave.endMinute)}`}
                 color={wave.color}
               />
             </View>
