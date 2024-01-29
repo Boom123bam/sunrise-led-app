@@ -9,7 +9,7 @@ import {
 import globalStyles from "../globalStyles";
 import { gray500 } from "../constants";
 import { usePage } from "../hooks/usePage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ColorPicker, {
   Panel3,
   Preview,
@@ -17,6 +17,7 @@ import ColorPicker, {
 } from "reanimated-color-picker";
 import EditAddStyles from "./EditAdd.styles";
 import { useWaves } from "../hooks/useWaves";
+import { formatTime } from "../utils/time";
 
 export default function EditAdd() {
   const [name, setName] = useState("");
@@ -27,8 +28,20 @@ export default function EditAdd() {
   const [tempColor, setTempColor] = useState("#ffffff");
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const { setTitle } = usePage();
+  const { title, setTitle, currentlyEditingWaveIndex } = usePage();
   const { waves, addWave } = useWaves();
+
+  useEffect(() => {
+    if (title === "edit") {
+      const w = waves[currentlyEditingWaveIndex];
+      if (!w) return;
+      setName(w.name);
+      setStartTime(formatTime(w.startHour, w.startMinute));
+      setEndTime(formatTime(w.endHour, w.endMinute));
+      setInDurationStr(String(w.inDuration));
+      setColor(w.color);
+    }
+  }, [waves]);
 
   function handleStartTimeChange(newTime) {
     setStartTime(normalizeTimeInput(newTime, startTime));
