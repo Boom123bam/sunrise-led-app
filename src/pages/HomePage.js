@@ -4,15 +4,12 @@ import WaveItem from "../components/WaveItem";
 import { gray500 } from "../constants";
 import { usePage } from "../hooks/usePage";
 import { useWaves } from "../hooks/useWaves";
-
+import { formatTime } from "../utils/time";
 
 export default function HomePage() {
   const { setTitle, setCurrentlyEditingWaveIndex } = usePage();
-  const { waves } = useWaves()
+  const { waves } = useWaves();
 
-  function formatTime(h, m) {
-    return `${('0' + h).slice(-2)}:${('0' + m).slice(-2)}`
-  }
   return (
     <View style={styles.homePage}>
       <ScrollView
@@ -28,8 +25,8 @@ export default function HomePage() {
                 timeRange={`${formatTime(wave.startHour, wave.startMinute)} - ${formatTime(wave.endHour, wave.endMinute)}`}
                 color={wave.color}
                 handlePress={() => {
-                  setCurrentlyEditingWaveIndex(i)
-                  setTitle("edit")
+                  setCurrentlyEditingWaveIndex(i);
+                  setTitle("edit");
                 }}
               />
             </View>
