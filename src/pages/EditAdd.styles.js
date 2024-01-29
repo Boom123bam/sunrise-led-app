@@ -36,6 +36,9 @@ export default EditAddStyles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
   },
+  rmButton: {
+    backgroundColor: errorRed, 
+  },
   colorPickerPopupContainer: {
     position: "absolute",
     width: 350,

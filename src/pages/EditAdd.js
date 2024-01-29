@@ -285,6 +285,14 @@ export default function EditAdd() {
             .<Text style={globalStyles.textPurple}>save</Text>()
           </Text>
         </Pressable>
+        {title == "edit" && (
+          <Pressable
+            style={[globalStyles.button, globalStyles.shadow, EditAddStyles.rmButton]}
+            onPress={handleNewColor}
+          >
+            <Text style={globalStyles.text}>rm</Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );
