@@ -4,7 +4,7 @@ import { gray700 } from "../constants";
 
 const editIcon = require("../assets/edit.png");
 
-export default function WaveItem({ title,  color, timeRange, handlePress }) {
+export default function WaveItem({ title, color, timeRange, handlePress }) {
   return (
     <Pressable style={WaveItemStyles.container} onPress={handlePress}>
       <View style={WaveItemStyles.leftContainer}>
@@ -48,5 +48,5 @@ const WaveItemStyles = StyleSheet.create({
   },
   editIcon: {
     marginTop: 4,
-  }
+  },
 });

@@ -17,20 +17,20 @@ export default function App() {
     return null;
   }
   return (
-    <View style={{backgroundColor: gray300, flex: 1}}>
-    <SafeAreaProvider>
-      <PageWrapper titleJsx={titleJsx}>
-        {title == "home" ? (
-          <HomePage />
-        ) : title == "add" ? (
-          <EditAdd />
-        ) : title == "edit" ? (
-          <EditAdd />
-        ) : (
-          <></>
-        )}
-      </PageWrapper>
-    </SafeAreaProvider>
+    <View style={{ backgroundColor: gray300, flex: 1 }}>
+      <SafeAreaProvider>
+        <PageWrapper titleJsx={titleJsx}>
+          {title == "home" ? (
+            <HomePage />
+          ) : title == "add" ? (
+            <EditAdd />
+          ) : title == "edit" ? (
+            <EditAdd />
+          ) : (
+            <></>
+          )}
+        </PageWrapper>
+      </SafeAreaProvider>
     </View>
   );
 }

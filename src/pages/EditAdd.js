@@ -76,8 +76,8 @@ export default function EditAdd() {
     setShowColorPicker(true);
   }
   function handleRemove() {
-    removeWave(currentlyEditingWaveIndex)
-    setTitle("home")
+    removeWave(currentlyEditingWaveIndex);
+    setTitle("home");
   }
   function handleSave() {
     try {
@@ -286,12 +286,17 @@ export default function EditAdd() {
           onPress={handleSave}
         >
           <Text style={globalStyles.text}>
-            .<Text style={globalStyles.textPurple}>save</Text><Text style={globalStyles.textBlue}>()</Text>
+            .<Text style={globalStyles.textPurple}>save</Text>
+            <Text style={globalStyles.textBlue}>()</Text>
           </Text>
         </Pressable>
         {title == "edit" && (
           <Pressable
-            style={[globalStyles.button, globalStyles.shadow, EditAddStyles.rmButton]}
+            style={[
+              globalStyles.button,
+              globalStyles.shadow,
+              EditAddStyles.rmButton,
+            ]}
             onPress={handleRemove}
           >
             <Text style={globalStyles.text}>rm</Text>

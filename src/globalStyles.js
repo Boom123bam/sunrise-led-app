@@ -16,10 +16,10 @@ export default globalStyles = StyleSheet.create({
   textBlue: {
     color: text2,
   },
-  textLight:{
+  textLight: {
     color: gray700,
   },
-  textDark:{
+  textDark: {
     color: gray500,
   },
   button: {

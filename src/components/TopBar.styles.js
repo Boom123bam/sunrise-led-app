@@ -8,7 +8,6 @@ export default TopBarStyles = StyleSheet.create({
     right: 0,
     top: -100,
     zIndex: 100,
-
   },
   top: {
     backgroundColor: gray500,

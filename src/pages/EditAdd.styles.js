@@ -37,7 +37,7 @@ export default EditAddStyles = StyleSheet.create({
     gap: 10,
   },
   rmButton: {
-    backgroundColor: errorRed, 
+    backgroundColor: errorRed,
   },
   colorPickerPopupContainer: {
     position: "absolute",
@@ -69,5 +69,5 @@ export default EditAddStyles = StyleSheet.create({
   },
   errorMessageText: {
     fontSize: 14,
-  }
+  },
 });
