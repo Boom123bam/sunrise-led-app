@@ -26,6 +26,7 @@ export default function EditAdd() {
   const [color, setColor] = useState("#ffffff");
   const [tempColor, setTempColor] = useState("#ffffff");
   const [showColorPicker, setShowColorPicker] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const { setTitle } = usePage();
   const { waves, addWave } = useWaves();
 
@@ -87,6 +88,7 @@ export default function EditAdd() {
       addWave(newWave);
       setTitle("home");
     } catch (error) {
+      setErrorMessage("Error: " + error.message);
       console.log(error.message);
     }
   }
@@ -237,6 +239,9 @@ export default function EditAdd() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+      <View style={EditAddStyles.errorMessageContainer}>
+        <Text style={globalStyles.text}>{errorMessage}</Text>
+      </View>
       <View style={EditAddStyles.actionButtons}>
         <Pressable
           onPress={() => setTitle("home")}
