@@ -6,3 +6,4 @@ export const gray300 = "#2A2A2A"
 export const textBase = "white"
 export const text1 = "#C9A8FF";
 export const text2 = "#B1E3FF";
+export const errorRed = "#721C1C"

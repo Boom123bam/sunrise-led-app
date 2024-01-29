@@ -7,6 +7,9 @@ export default globalStyles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "JetBrains-Mono-regular",
   },
+  bold: {
+    fontFamily: "JetBrains-Mono-bold",
+  },
   textPurple: {
     color: text1,
   },
