@@ -44,9 +44,20 @@ export function useWaves() {
     }
   };
 
+  const removeWave = async (waveIndex) => {
+    try {
+      const updatedWaves = [...waves];
+      updatedWaves.splice(waveIndex, 1);
+      await AsyncStorage.setItem("waves", JSON.stringify(updatedWaves));
+      setWaves(updatedWaves);
+    } catch (error) {
+      console.error("Error adding wave to AsyncStorage:", error);
+    }
+  };
+
   useEffect(() => {
     fetchWaves();
   }, []); // Fetch waves on component mount
 
-  return { waves, addWave, editWave };
+  return { waves, addWave, editWave, removeWave };
 }

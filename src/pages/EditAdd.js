@@ -29,7 +29,7 @@ export default function EditAdd() {
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const { title, setTitle, currentlyEditingWaveIndex } = usePage();
-  const { waves, addWave, editWave } = useWaves();
+  const { waves, addWave, editWave, removeWave } = useWaves();
 
   useEffect(() => {
     if (title === "edit") {
@@ -74,6 +74,10 @@ export default function EditAdd() {
   }
   function handleColorCircleClick() {
     setShowColorPicker(true);
+  }
+  function handleRemove() {
+    removeWave(currentlyEditingWaveIndex)
+    setTitle("home")
   }
   function handleSave() {
     try {
@@ -288,7 +292,7 @@ export default function EditAdd() {
         {title == "edit" && (
           <Pressable
             style={[globalStyles.button, globalStyles.shadow, EditAddStyles.rmButton]}
-            onPress={handleNewColor}
+            onPress={handleRemove}
           >
             <Text style={globalStyles.text}>rm</Text>
           </Pressable>
