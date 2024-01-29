@@ -29,7 +29,7 @@ export default function EditAdd() {
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const { title, setTitle, currentlyEditingWaveIndex } = usePage();
-  const { waves, addWave } = useWaves();
+  const { waves, addWave, editWave } = useWaves();
 
   useEffect(() => {
     if (title === "edit") {
@@ -98,7 +98,9 @@ export default function EditAdd() {
       // validate wave
       validateWave(newWave);
 
-      addWave(newWave);
+      if (title === "add") addWave(newWave);
+      else editWave(currentlyEditingWaveIndex, newWave);
+
       setTitle("home");
     } catch (error) {
       setErrorMessage(error.message);
@@ -137,6 +139,8 @@ export default function EditAdd() {
       throw new Error("end_time must be after start_time");
 
     if (!newWave.name) throw new Error("wave must have a name");
+
+    if (title === "edit") return;
     // check if name taken
     for (const wave of waves) {
       if (wave.name === newWave.name) throw new Error("name already exists");
