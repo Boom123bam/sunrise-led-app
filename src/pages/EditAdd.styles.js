@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { gray400, gray600 } from "../constants";
+import { errorRed, gray400, gray600 } from "../constants";
 
 export default EditAddStyles = StyleSheet.create({
   container: {
@@ -57,4 +57,14 @@ export default EditAddStyles = StyleSheet.create({
   popupOKButton: {
     backgroundColor: gray600,
   },
+  errorMessageContainer: {
+    backgroundColor: errorRed,
+    alignSelf: "stretch",
+    alignItems: "center",
+    marginBottom: 20,
+    paddingVertical: 2,
+  },
+  errorMessageText: {
+    fontSize: 14,
+  }
 });

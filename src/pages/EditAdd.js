@@ -88,7 +88,7 @@ export default function EditAdd() {
       addWave(newWave);
       setTitle("home");
     } catch (error) {
-      setErrorMessage("Error: " + error.message);
+      setErrorMessage(error.message);
       console.log(error.message);
     }
   }
@@ -239,9 +239,14 @@ export default function EditAdd() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-      <View style={EditAddStyles.errorMessageContainer}>
-        <Text style={globalStyles.text}>{errorMessage}</Text>
-      </View>
+      {errorMessage && (
+        <View style={EditAddStyles.errorMessageContainer}>
+          <Text style={[globalStyles.text, EditAddStyles.errorMessageText]}>
+            <Text style={globalStyles.bold}>Error: </Text>
+            {errorMessage}
+          </Text>
+        </View>
+      )}
       <View style={EditAddStyles.actionButtons}>
         <Pressable
           onPress={() => setTitle("home")}
