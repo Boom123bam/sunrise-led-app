@@ -39,16 +39,6 @@ export default EditAddStyles = StyleSheet.create({
   rmButton: {
     backgroundColor: errorRed,
   },
-  colorPickerPopupContainer: {
-    position: "absolute",
-    width: 350,
-    top: 50,
-    backgroundColor: gray400,
-    zIndex: 100,
-    padding: 20,
-    borderRadius: 10,
-    gap: 30,
-  },
   colorPickerContainer: {
     gap: 20,
   },

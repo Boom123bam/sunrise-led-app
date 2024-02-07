@@ -43,4 +43,14 @@ export default globalStyles = StyleSheet.create({
 
     elevation: 8,
   },
+  popupContainer: {
+    position: "absolute",
+    width: 350,
+    top: 50,
+    backgroundColor: gray400,
+    zIndex: 100,
+    padding: 20,
+    borderRadius: 10,
+    gap: 30,
+  },
 });

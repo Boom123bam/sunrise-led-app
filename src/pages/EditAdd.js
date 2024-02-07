@@ -152,9 +152,7 @@ export default function EditAdd() {
   return (
     <View style={[EditAddStyles.container, { marginBottom: 16 }]}>
       {showColorPicker && (
-        <View
-          style={[EditAddStyles.colorPickerPopupContainer, globalStyles.shadow]}
-        >
+        <View style={[globalStyles.popupContainer, globalStyles.shadow]}>
           <ColorPicker
             value={color}
             onComplete={handleNewTempColor}
