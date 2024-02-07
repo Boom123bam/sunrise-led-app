@@ -18,7 +18,7 @@ function insertDots(str) {
 export default function SettingsPopup({ setShowSettings }) {
   const [ip, setIp] = useState("");
   const [message, setMessage] = useState("");
-  const [isGreen, setIsGreen] = useState(false);
+  const [status, setStatus] = useState(""); // "waiting" | "ok" | "error" | ""
 
   useEffect(() => {
     loadIp();
@@ -36,12 +36,14 @@ export default function SettingsPopup({ setShowSettings }) {
   }
   async function handleTest() {
     try {
+      setStatus("waiting");
       const response = await testResponse(ip);
       setMessage(response);
-      setIsGreen(true);
+      setStatus("ok");
     } catch (error) {
+      setStatus("waiting");
       setMessage(error.message);
-      setIsGreen(false);
+      setStatus("error");
     }
   }
   function handleIpChange(newIp) {
@@ -89,18 +91,28 @@ export default function SettingsPopup({ setShowSettings }) {
           </Text>
         </Pressable>
 
-        {message && (
+        {status && (
           <View
             style={[
               styles.messageContainer,
-              isGreen ? styles.greenMessage : styles.redMessage,
+              status == "waiting"
+                ? styles.orangeMessage
+                : status == "ok"
+                  ? styles.greenMessage
+                  : styles.redMessage,
             ]}
           >
             <Text style={[globalStyles.text, styles.messageText]}>
-              <Text style={globalStyles.bold}>
-                {isGreen ? "OK! Got: " : "Error: "}
-              </Text>
-              {message}
+              {status == "waiting" ? (
+                "waiting for response..."
+              ) : (
+                <>
+                  <Text style={globalStyles.bold}>
+                    {status ? "OK! Got: " : "Error: "}
+                  </Text>
+                  {message}
+                </>
+              )}
             </Text>
           </View>
         )}
@@ -153,6 +165,9 @@ const styles = StyleSheet.create({
   },
   messageText: {
     fontSize: 14,
+  },
+  orangeMessage: {
+    backgroundColor: "orange",
   },
   greenMessage: {
     backgroundColor: "green",
