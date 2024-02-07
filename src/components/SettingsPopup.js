@@ -1,7 +1,8 @@
 import { View, Text, Pressable, StyleSheet, TextInput } from "react-native";
 import { gray500, gray600 } from "../constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import globalStyles from "../globalStyles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ipDotPos = [3, 7, 9];
 
@@ -14,18 +15,28 @@ function insertDots(str) {
 }
 
 export default function SettingsPopup({ setShowSettings }) {
+  const [ip, setIp] = useState("");
+
+  useEffect(() => {
+    loadIp();
+  }, []);
+  async function loadIp() {
+    const ip = await AsyncStorage.getItem("ip");
+    setIp(ip);
+  }
   function handleCancel() {
     setShowSettings(false);
   }
-  function handleSave() {}
+  async function handleSave() {
+    await AsyncStorage.setItem("ip", ip);
+    setShowSettings(false);
+  }
   function handleTest() {}
   function handleIpChange(newIp) {
     newIp = newIp.replaceAll(".", "");
     newIp = insertDots(newIp);
     setIp(newIp);
   }
-
-  const [ip, setIp] = useState("");
 
   return (
     <View style={styles.popupContainerContainer}>
