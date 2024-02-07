@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
+import { postWaves } from "../utils/post";
 
 export function useWaves() {
   const [waves, setWaves] = useState([]);
@@ -23,6 +24,8 @@ export function useWaves() {
           a.startHour * 60 + a.startMinute - (b.startHour * 60 + b.startMinute),
       );
       await AsyncStorage.setItem("waves", JSON.stringify(updatedWaves));
+      const ip = await AsyncStorage.getItem("ip");
+      await postWaves(updatedWaves, ip);
       setWaves(updatedWaves);
     } catch (error) {
       console.error("Error adding wave to AsyncStorage:", error);
@@ -38,6 +41,8 @@ export function useWaves() {
           a.startHour * 60 + a.startMinute - (b.startHour * 60 + b.startMinute),
       );
       await AsyncStorage.setItem("waves", JSON.stringify(updatedWaves));
+      const ip = await AsyncStorage.getItem("ip");
+      await postWaves(updatedWaves, ip);
       setWaves(updatedWaves);
     } catch (error) {
       console.error("Error adding wave to AsyncStorage:", error);
@@ -49,6 +54,8 @@ export function useWaves() {
       const updatedWaves = [...waves];
       updatedWaves.splice(waveIndex, 1);
       await AsyncStorage.setItem("waves", JSON.stringify(updatedWaves));
+      const ip = await AsyncStorage.getItem("ip");
+      await postWaves(updatedWaves, ip);
       setWaves(updatedWaves);
     } catch (error) {
       console.error("Error adding wave to AsyncStorage:", error);
