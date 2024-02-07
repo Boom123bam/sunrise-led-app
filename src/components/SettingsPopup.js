@@ -1,8 +1,9 @@
 import { View, Text, Pressable, StyleSheet, TextInput } from "react-native";
-import { gray500, gray600 } from "../constants";
+import { errorRed, gray500, gray600 } from "../constants";
 import { useEffect, useState } from "react";
 import globalStyles from "../globalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { testResponse } from "../utils/post";
 
 const ipDotPos = [3, 7, 9];
 
@@ -16,6 +17,8 @@ function insertDots(str) {
 
 export default function SettingsPopup({ setShowSettings }) {
   const [ip, setIp] = useState("");
+  const [message, setMessage] = useState("");
+  const [isGreen, setIsGreen] = useState(false);
 
   useEffect(() => {
     loadIp();
@@ -31,7 +34,16 @@ export default function SettingsPopup({ setShowSettings }) {
     await AsyncStorage.setItem("ip", ip);
     setShowSettings(false);
   }
-  function handleTest() {}
+  async function handleTest() {
+    try {
+      const response = await testResponse(ip);
+      setMessage(response);
+      setIsGreen(true);
+    } catch (error) {
+      setMessage(error.message);
+      setIsGreen(false);
+    }
+  }
   function handleIpChange(newIp) {
     newIp = newIp.replaceAll(".", "");
     newIp = insertDots(newIp);
@@ -77,7 +89,23 @@ export default function SettingsPopup({ setShowSettings }) {
           </Text>
         </Pressable>
 
-        <View style={EditAddStyles.popupButtonsContainer}>
+        {message && (
+          <View
+            style={[
+              styles.messageContainer,
+              isGreen ? styles.greenMessage : styles.redMessage,
+            ]}
+          >
+            <Text style={[globalStyles.text, styles.messageText]}>
+              <Text style={globalStyles.bold}>
+                {isGreen ? "OK! Got: " : "Error: "}
+              </Text>
+              {message}
+            </Text>
+          </View>
+        )}
+
+        <View style={styles.popupButtonsContainer}>
           <Pressable onPress={handleCancel} style={[globalStyles.button]}>
             <Text style={globalStyles.text}>
               /<Text style={globalStyles.textBlue}>..</Text>
@@ -106,13 +134,36 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
   popupContainer: {
-    padding: 30,
+    paddingHorizontal: 0,
+    paddingVertical: 30,
+    gap: 20,
   },
   settingsText: {
     alignSelf: "center",
+    fontSize: 20,
   },
   propertyLine: {
     flexDirection: "row",
+    marginLeft: 30,
+  },
+  messageContainer: {
+    alignSelf: "stretch",
+    alignItems: "center",
+    paddingVertical: 2,
+  },
+  messageText: {
+    fontSize: 14,
+  },
+  greenMessage: {
+    backgroundColor: "green",
+  },
+  redMessage: {
+    backgroundColor: errorRed,
+  },
+  popupButtonsContainer: {
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: 10,
   },
   popupSaveButton: {
     backgroundColor: gray600,
