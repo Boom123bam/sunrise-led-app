@@ -3,13 +3,27 @@ import { gray500, gray600 } from "../constants";
 import { useState } from "react";
 import globalStyles from "../globalStyles";
 
+const ipDotPos = [3, 7, 9];
+
+function insertDots(str) {
+  ipDotPos.forEach(
+    (i) =>
+      (str = i >= str.length ? str : str.substr(0, i) + "." + str.substr(i)),
+  );
+  return str;
+}
+
 export default function SettingsPopup({ setShowSettings }) {
   function handleCancel() {
     setShowSettings(false);
   }
   function handleSave() {}
   function handleTest() {}
-  function handleIpChange() {}
+  function handleIpChange(newIp) {
+    newIp = newIp.replaceAll(".", "");
+    newIp = insertDots(newIp);
+    setIp(newIp);
+  }
 
   const [ip, setIp] = useState("");
 
@@ -40,7 +54,7 @@ export default function SettingsPopup({ setShowSettings }) {
             returnKeyType="done"
             value={ip}
             onChangeText={handleIpChange}
-            maxLength={5}
+            maxLength={11}
           />
           <Text style={globalStyles.text}>;</Text>
         </View>
