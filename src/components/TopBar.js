@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { usePage } from "../hooks/usePage";
 import { useWaves } from "../hooks/useWaves";
 
-export default function TopBar() {
+export default function TopBar({ onPress }) {
   const [pageTitleJsx, setPageTitleJsx] = useState(<></>);
   const { title } = usePage();
   const { waves } = useWaves();
@@ -42,7 +42,9 @@ export default function TopBar() {
     <View style={[TopBarStyles.topBarContainer, globalStyles.shadow]}>
       <View style={TopBarStyles.top} />
       <View style={TopBarStyles.middleBox}>
-        <Text style={TopBarStyles.middleBoxText}>{pageTitleJsx}</Text>
+        <Text style={TopBarStyles.middleBoxText} onPress={onPress}>
+          {pageTitleJsx}
+        </Text>
       </View>
     </View>
   );

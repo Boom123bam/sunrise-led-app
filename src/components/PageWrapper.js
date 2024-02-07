@@ -4,15 +4,21 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import SettingsPopup from "./SettingsPopup.js";
+import { usePage } from "../hooks/usePage.js";
 
 export default function PageWrapper({ children }) {
   const [showSettings, setShowSettings] = useState(false);
+  const { title } = usePage();
 
   return (
     <SafeAreaView style={pageWrapperStyles.background}>
       <StatusBar style="light" />
       <View style={pageWrapperStyles.pageContainer}>
-        <TopBar onPress={() => setShowSettings((s) => !s)} />
+        <TopBar
+          onPress={() => {
+            if (title == "home") setShowSettings((s) => !s);
+          }}
+        />
         {showSettings && <SettingsPopup setShowSettings={setShowSettings} />}
         <View style={pageWrapperStyles.contentContainer}>{children}</View>
       </View>
