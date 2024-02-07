@@ -48,13 +48,13 @@ export default function SettingsPopup({ setShowSettings }) {
           </Text>
           <TextInput
             style={[globalStyles.text, globalStyles.textPurple]}
-            placeholder="192.168.0.0"
+            placeholder="192.168.0.00"
             placeholderTextColor={gray500}
             inputMode="numeric"
             returnKeyType="done"
             value={ip}
             onChangeText={handleIpChange}
-            maxLength={11}
+            maxLength={12}
           />
           <Text style={globalStyles.text}>;</Text>
         </View>
