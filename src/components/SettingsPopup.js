@@ -1,5 +1,11 @@
 import { View, Text, Pressable, StyleSheet, TextInput } from "react-native";
-import { errorRed, gray500, gray600 } from "../constants";
+import {
+  errorRed,
+  gray500,
+  gray600,
+  successGreen,
+  waitingOrange,
+} from "../constants";
 import { useEffect, useState } from "react";
 import globalStyles from "../globalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -167,10 +173,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   orangeMessage: {
-    backgroundColor: "orange",
+    backgroundColor: waitingOrange,
   },
   greenMessage: {
-    backgroundColor: "green",
+    backgroundColor: successGreen,
   },
   redMessage: {
     backgroundColor: errorRed,

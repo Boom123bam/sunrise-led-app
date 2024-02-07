@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
 import { postWaves } from "../utils/post";
 import Toast from "react-native-root-toast";
-import { errorRed } from "../constants";
+import { errorRed, successGreen } from "../constants";
 
 export function useWaves() {
   const [waves, setWaves] = useState([]);
@@ -31,7 +31,7 @@ export function useWaves() {
       setWaves(updatedWaves);
       Toast.show("Waves uploaded", {
         duration: Toast.durations.LONG,
-        backgroundColor: "green",
+        backgroundColor: successGreen,
       });
     } catch (error) {
       Toast.show(error.message, {
@@ -56,7 +56,7 @@ export function useWaves() {
       setWaves(updatedWaves);
       Toast.show("Waves uploaded", {
         duration: Toast.durations.LONG,
-        backgroundColor: "green",
+        backgroundColor: successGreen,
       });
     } catch (error) {
       Toast.show(error.message, {
@@ -77,7 +77,7 @@ export function useWaves() {
       setWaves(updatedWaves);
       Toast.show("Waves uploaded", {
         duration: Toast.durations.LONG,
-        backgroundColor: "green",
+        backgroundColor: successGreen,
       });
     } catch (error) {
       Toast.show(error.message, {

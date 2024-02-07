@@ -7,3 +7,5 @@ export const textBase = "white";
 export const text1 = "#C9A8FF";
 export const text2 = "#B1E3FF";
 export const errorRed = "#721C1C";
+export const waitingOrange = "#835912";
+export const successGreen = "#1D5E12";
