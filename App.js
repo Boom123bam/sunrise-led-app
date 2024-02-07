@@ -6,6 +6,7 @@ import HomePage from "./src/pages/HomePage";
 import EditAdd from "./src/pages/EditAdd";
 import { View } from "react-native";
 import { gray300 } from "./src/constants";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 export default function App() {
   const { titleJsx, title } = usePage();
@@ -17,20 +18,22 @@ export default function App() {
     return null;
   }
   return (
-    <View style={{ backgroundColor: gray300, flex: 1 }}>
-      <SafeAreaProvider>
-        <PageWrapper titleJsx={titleJsx}>
-          {title == "home" ? (
-            <HomePage />
-          ) : title == "add" ? (
-            <EditAdd />
-          ) : title == "edit" ? (
-            <EditAdd />
-          ) : (
-            <></>
-          )}
-        </PageWrapper>
-      </SafeAreaProvider>
-    </View>
+    <RootSiblingParent>
+      <View style={{ backgroundColor: gray300, flex: 1 }}>
+        <SafeAreaProvider>
+          <PageWrapper titleJsx={titleJsx}>
+            {title == "home" ? (
+              <HomePage />
+            ) : title == "add" ? (
+              <EditAdd />
+            ) : title == "edit" ? (
+              <EditAdd />
+            ) : (
+              <></>
+            )}
+          </PageWrapper>
+        </SafeAreaProvider>
+      </View>
+    </RootSiblingParent>
   );
 }

@@ -1,6 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
 import { postWaves } from "../utils/post";
+import Toast from "react-native-root-toast";
+import { errorRed } from "../constants";
 
 export function useWaves() {
   const [waves, setWaves] = useState([]);
@@ -27,7 +29,15 @@ export function useWaves() {
       const ip = await AsyncStorage.getItem("ip");
       await postWaves(updatedWaves, ip);
       setWaves(updatedWaves);
+      Toast.show("Waves uploaded", {
+        duration: Toast.durations.LONG,
+        backgroundColor: "green",
+      });
     } catch (error) {
+      Toast.show(error.message, {
+        duration: Toast.durations.LONG,
+        backgroundColor: errorRed,
+      });
       console.error("Error adding wave to AsyncStorage:", error);
     }
   };
@@ -44,7 +54,15 @@ export function useWaves() {
       const ip = await AsyncStorage.getItem("ip");
       await postWaves(updatedWaves, ip);
       setWaves(updatedWaves);
+      Toast.show("Waves uploaded", {
+        duration: Toast.durations.LONG,
+        backgroundColor: "green",
+      });
     } catch (error) {
+      Toast.show(error.message, {
+        duration: Toast.durations.LONG,
+        backgroundColor: errorRed,
+      });
       console.error("Error adding wave to AsyncStorage:", error);
     }
   };
@@ -57,7 +75,15 @@ export function useWaves() {
       const ip = await AsyncStorage.getItem("ip");
       await postWaves(updatedWaves, ip);
       setWaves(updatedWaves);
+      Toast.show("Waves uploaded", {
+        duration: Toast.durations.LONG,
+        backgroundColor: "green",
+      });
     } catch (error) {
+      Toast.show(error.message, {
+        duration: Toast.durations.LONG,
+        backgroundColor: errorRed,
+      });
       console.error("Error adding wave to AsyncStorage:", error);
     }
   };

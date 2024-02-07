@@ -7,7 +7,7 @@ export async function postWaves(waves, ip) {
     },
     body: JSON.stringify(waves),
   });
-  return response.json();
+  return response.ok;
 }
 
 export async function testResponse(ip) {
