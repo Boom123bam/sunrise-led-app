@@ -96,7 +96,6 @@ export default function EditAdd() {
         startMinute,
         endHour,
         endMinute,
-        endTime,
         inDuration,
       };
       // validate wave
@@ -108,7 +107,6 @@ export default function EditAdd() {
       setTitle("home");
     } catch (error) {
       setErrorMessage(error.message);
-      console.log(error.message);
     }
   }
 
