@@ -1,26 +1,27 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState, useEffect } from "react";
 import { postWaves } from "../utils/post";
 import Toast from "react-native-root-toast";
 import { errorRed, successGreen } from "../constants";
+import { create } from "zustand";
 
-export function useWaves() {
-  const [waves, setWaves] = useState([]);
+export const useWaves = create((set, get) => ({
+  waves: [],
+  setWaves: (newWaves) => set({ waves: newWaves }),
 
-  const fetchWaves = async () => {
+  fetchWaves: async () => {
     try {
       const storedWaves = await AsyncStorage.getItem("waves");
       if (storedWaves) {
-        setWaves(JSON.parse(storedWaves));
+        set({ waves: JSON.parse(storedWaves) });
       }
     } catch (error) {
       console.error("Error fetching waves from AsyncStorage:", error);
     }
-  };
+  },
 
-  const addWave = async (newWave) => {
+  addWave: async (newWave) => {
     try {
-      const updatedWaves = [...waves, newWave];
+      const updatedWaves = [...get().waves, newWave];
       updatedWaves.sort(
         (a, b) =>
           a.startHour * 60 + a.startMinute - (b.startHour * 60 + b.startMinute),
@@ -28,7 +29,7 @@ export function useWaves() {
       await AsyncStorage.setItem("waves", JSON.stringify(updatedWaves));
       const ip = await AsyncStorage.getItem("ip");
       await postWaves(updatedWaves, ip);
-      setWaves(updatedWaves);
+      set({ waves: updatedWaves });
       Toast.show("Waves uploaded", {
         duration: Toast.durations.LONG,
         backgroundColor: successGreen,
@@ -40,11 +41,11 @@ export function useWaves() {
       });
       console.error("Error adding wave to AsyncStorage:", error);
     }
-  };
+  },
 
-  const editWave = async (waveIndex, newWave) => {
+  editWave: async (waveIndex, newWave) => {
     try {
-      const updatedWaves = [...waves];
+      const updatedWaves = [...get().waves];
       updatedWaves[waveIndex] = newWave;
       updatedWaves.sort(
         (a, b) =>
@@ -53,7 +54,7 @@ export function useWaves() {
       await AsyncStorage.setItem("waves", JSON.stringify(updatedWaves));
       const ip = await AsyncStorage.getItem("ip");
       await postWaves(updatedWaves, ip);
-      setWaves(updatedWaves);
+      set({ waves: updatedWaves });
       Toast.show("Waves uploaded", {
         duration: Toast.durations.LONG,
         backgroundColor: successGreen,
@@ -65,16 +66,16 @@ export function useWaves() {
       });
       console.error("Error adding wave to AsyncStorage:", error);
     }
-  };
+  },
 
-  const removeWave = async (waveIndex) => {
+  removeWave: async (waveIndex) => {
     try {
-      const updatedWaves = [...waves];
+      const updatedWaves = [...get().waves];
       updatedWaves.splice(waveIndex, 1);
       await AsyncStorage.setItem("waves", JSON.stringify(updatedWaves));
       const ip = await AsyncStorage.getItem("ip");
       await postWaves(updatedWaves, ip);
-      setWaves(updatedWaves);
+      set({ waves: updatedWaves });
       Toast.show("Waves uploaded", {
         duration: Toast.durations.LONG,
         backgroundColor: successGreen,
@@ -86,11 +87,5 @@ export function useWaves() {
       });
       console.error("Error adding wave to AsyncStorage:", error);
     }
-  };
-
-  useEffect(() => {
-    fetchWaves();
-  }, []); // Fetch waves on component mount
-
-  return { waves, addWave, editWave, removeWave };
-}
+  },
+}));

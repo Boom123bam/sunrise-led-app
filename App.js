@@ -7,8 +7,11 @@ import EditAdd from "./src/pages/EditAdd";
 import { View } from "react-native";
 import { gray300 } from "./src/constants";
 import { RootSiblingParent } from "react-native-root-siblings";
+import { useWaves } from "./src/hooks/useWaves";
+import { useEffect } from "react";
 
 export default function App() {
+  const { fetchWaves } = useWaves();
   const { titleJsx, title } = usePage();
   const [fontsLoaded] = useFonts({
     "JetBrains-Mono-regular": require("./src/assets/fonts/jetbrains-mono-regular.ttf"),
@@ -17,6 +20,10 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
+  useEffect(() => {
+    fetchWaves();
+  }, []);
   return (
     <RootSiblingParent>
       <View style={{ backgroundColor: gray300, flex: 1 }}>

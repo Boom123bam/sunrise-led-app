@@ -37,7 +37,8 @@ export default function TopBar({ onPress }) {
         setPageTitleJsx(<>{title}</>);
         break;
     }
-  }, [title]);
+  }, [title, waves]);
+
   return (
     <View style={[TopBarStyles.topBarContainer, globalStyles.shadow]}>
       <View style={TopBarStyles.top} />
