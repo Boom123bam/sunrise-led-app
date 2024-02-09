@@ -1,11 +1,12 @@
+import { wavesToRGB } from "./color";
+
 export async function postWaves(waves, ip) {
-  console.log(JSON.stringify(waves));
   const response = await fetch(`http://${ip}/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(waves),
+    body: JSON.stringify(wavesToRGB(waves)),
   });
   return response.ok;
 }
