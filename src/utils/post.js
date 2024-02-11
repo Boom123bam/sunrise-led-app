@@ -1,8 +1,12 @@
 import { wavesToRGB } from "./color";
 
 export async function postWaves(waves, ip) {
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(), 5000);
+
   const response = await fetch(`http://${ip}/`, {
     method: "POST",
+    signal: controller.signal,
     headers: {
       "Content-Type": "application/json",
     },
@@ -12,8 +16,12 @@ export async function postWaves(waves, ip) {
 }
 
 export async function testResponse(ip) {
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(), 5000);
+
   const response = await fetch(`http://${ip}/`, {
     method: "GET",
+    signal: controller.signal,
   });
 
   if (!response.ok) {
