@@ -17,13 +17,14 @@ export default function App() {
     "JetBrains-Mono-regular": require("./src/assets/fonts/jetbrains-mono-regular.ttf"),
     "JetBrains-Mono-bold": require("./src/assets/fonts/jetbrains-mono-bold.ttf"),
   });
-  if (!fontsLoaded) {
-    return null;
-  }
 
   useEffect(() => {
     fetchWaves();
   }, []);
+
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <RootSiblingParent>
       <View style={{ backgroundColor: gray300, flex: 1 }}>
