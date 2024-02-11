@@ -28,8 +28,8 @@ export const useWaves = create((set, get) => ({
       );
       await AsyncStorage.setItem("waves", JSON.stringify(updatedWaves));
       const ip = await AsyncStorage.getItem("ip");
-      await postWaves(updatedWaves, ip);
       set({ waves: updatedWaves });
+      await postWaves(updatedWaves, ip);
       Toast.show("Waves uploaded", {
         duration: Toast.durations.LONG,
         backgroundColor: successGreen,
@@ -39,7 +39,7 @@ export const useWaves = create((set, get) => ({
         duration: Toast.durations.LONG,
         backgroundColor: errorRed,
       });
-      console.error("Error adding wave to AsyncStorage:", error);
+      console.error("Error adding waves:", error);
     }
   },
 
@@ -53,8 +53,8 @@ export const useWaves = create((set, get) => ({
       );
       await AsyncStorage.setItem("waves", JSON.stringify(updatedWaves));
       const ip = await AsyncStorage.getItem("ip");
-      await postWaves(updatedWaves, ip);
       set({ waves: updatedWaves });
+      await postWaves(updatedWaves, ip);
       Toast.show("Waves uploaded", {
         duration: Toast.durations.LONG,
         backgroundColor: successGreen,
@@ -64,7 +64,7 @@ export const useWaves = create((set, get) => ({
         duration: Toast.durations.LONG,
         backgroundColor: errorRed,
       });
-      console.error("Error adding wave to AsyncStorage:", error);
+      console.error("Error adding waves:", error);
     }
   },
 
@@ -74,8 +74,8 @@ export const useWaves = create((set, get) => ({
       updatedWaves.splice(waveIndex, 1);
       await AsyncStorage.setItem("waves", JSON.stringify(updatedWaves));
       const ip = await AsyncStorage.getItem("ip");
-      await postWaves(updatedWaves, ip);
       set({ waves: updatedWaves });
+      await postWaves(updatedWaves, ip);
       Toast.show("Waves uploaded", {
         duration: Toast.durations.LONG,
         backgroundColor: successGreen,
@@ -85,7 +85,7 @@ export const useWaves = create((set, get) => ({
         duration: Toast.durations.LONG,
         backgroundColor: errorRed,
       });
-      console.error("Error adding wave to AsyncStorage:", error);
+      console.error("Error adding waves:", error);
     }
   },
 }));
