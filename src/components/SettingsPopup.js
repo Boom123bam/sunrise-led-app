@@ -114,7 +114,7 @@ export default function SettingsPopup({ setShowSettings }) {
               ) : (
                 <>
                   <Text style={globalStyles.bold}>
-                    {status ? "OK! Got: " : "Error: "}
+                    {status == "ok" ? "OK! Got: " : "Error: "}
                   </Text>
                   {message}
                 </>
