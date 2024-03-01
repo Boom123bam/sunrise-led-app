@@ -35,7 +35,6 @@ export async function testResponse(ip) {
 export async function postColor(hexColor, ip) {
   const controller = new AbortController();
   setTimeout(() => controller.abort(), 5000);
-  console.log(JSON.stringify(toRGBobj(hexColor)));
 
   const response = await fetch(`http://${ip}/color`, {
     method: "POST",

@@ -20,6 +20,9 @@ import { useWaves } from "../hooks/useWaves";
 import { formatTime } from "../utils/time";
 import { postColor } from "../utils/post";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { debounce } from "../utils/debounce";
+
+const debouncedPostColor = debounce(postColor, 100);
 
 export default function EditAdd() {
   const [name, setName] = useState("");
@@ -73,8 +76,7 @@ export default function EditAdd() {
 
   const handleNewTempColor = async ({ hex }) => {
     setTempColor(hex);
-    res = await postColor(hex, ip);
-    console.log(res);
+    debouncedPostColor(hex, ip);
   };
 
   function handleNewColor() {
