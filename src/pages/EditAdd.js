@@ -18,6 +18,8 @@ import ColorPicker, {
 import EditAddStyles from "./EditAdd.styles";
 import { useWaves } from "../hooks/useWaves";
 import { formatTime } from "../utils/time";
+import { postColor } from "../utils/post";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function EditAdd() {
   const [name, setName] = useState("");
@@ -28,8 +30,16 @@ export default function EditAdd() {
   const [tempColor, setTempColor] = useState("#ffffff");
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [ip, setIp] = useState("");
   const { title, setTitle, currentlyEditingWaveIndex } = usePage();
   const { waves, addWave, editWave, removeWave } = useWaves();
+
+  useEffect(() => {
+    (async () => {
+      const ip = await AsyncStorage.getItem("ip");
+      setIp(ip);
+    })();
+  });
 
   useEffect(() => {
     if (title === "edit") {
@@ -61,8 +71,10 @@ export default function EditAdd() {
     return value;
   };
 
-  const handleNewTempColor = ({ hex }) => {
+  const handleNewTempColor = async ({ hex }) => {
     setTempColor(hex);
+    res = await postColor(hex, ip);
+    console.log(res);
   };
 
   function handleNewColor() {

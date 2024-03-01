@@ -8,7 +8,7 @@ export function wavesToRGB(waves) {
   return waves;
 }
 
-function toRGBobj(hex) {
+export function toRGBobj(hex) {
   const rgba = colorKit.RGB(hex).object();
   delete rgba["a"];
   return rgba;

@@ -1,4 +1,4 @@
-import { wavesToRGB } from "./color";
+import { toRGBobj, wavesToRGB } from "./color";
 
 export async function postWaves(waves, ip) {
   const controller = new AbortController();
@@ -30,4 +30,21 @@ export async function testResponse(ip) {
 
   const data = await response.text();
   return data;
+}
+
+export async function postColor(hexColor, ip) {
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(), 5000);
+  console.log(JSON.stringify(toRGBobj(hexColor)));
+
+  const response = await fetch(`http://${ip}/color`, {
+    method: "POST",
+    signal: controller.signal,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(toRGBobj(hexColor)),
+  });
+
+  return response.ok;
 }
